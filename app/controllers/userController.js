@@ -68,7 +68,6 @@ const signin = async (req, res) => {
       httpOnly: false,
       maxAge: 60 * 60 * 1000,
     });
-
     // Check user role
     const isAdmin = user.role === "admin";
     res.status(status.status.OK).send(
@@ -118,8 +117,53 @@ const allUsers = async (req, res) => {
   }
 };
 
+// Update the user role by id
+const updateUsersRole = async (req, res) => {
+  const { id } = req.params;
+  const updatedRole = req.body;
+  // console.log(updatedRole);
+  try {
+    const result = await User.findByIdAndUpdate(id, updatedRole, { new: true });
+    if (!result) {
+      return res
+        .status(status.status.NOT_FOUND)
+        .send(
+          response.createNotFoundResponse(
+            status.status.NOT_FOUND,
+            "User role not updated"
+          )
+        );
+    }
+
+    // // Update the user's role
+    // user.role = role;
+    // await user.save();
+
+    res
+      .status(status.status.OK)
+      .send(
+        response.createSuccessResponse(
+          status.status.OK,
+          "User role updated successfully",
+          result
+        )
+      );
+  } catch (error) {
+    res
+      .status(status.status.INTERNAL_SERVER_ERROR)
+      .send(
+        response.createErrorResponse(
+          status.status.INTERNAL_SERVER_ERROR,
+          "Server error occured during the update users role",
+          error
+        )
+      );
+  }
+};
+
 module.exports = {
   signup,
   signin,
   allUsers,
+  updateUsersRole,
 };

@@ -6,9 +6,9 @@ router.post(
   "/donation-transaction",
   donationTransactionController.createDonationTransaction
 );
-router.get(
-  "/get-transactions",
-  donationTransactionController.getAllTransactions
-);
+// router.get(
+//   "/get-transactions",
+//   donationTransactionController.getAllTransactions
+// );
 
 module.exports = router;

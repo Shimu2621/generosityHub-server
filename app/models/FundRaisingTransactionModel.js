@@ -14,6 +14,8 @@ const fundRaisingTransactionSchema = new mongoose.Schema(
       required: true,
     },
     amount: { type: Number, required: true },
+    title: { type: String },
+    category: { type: String },
     message: { type: String },
   },
   {

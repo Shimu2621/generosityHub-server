@@ -63,46 +63,50 @@ const createDonationTransaction = async (req, res) => {
       );
   }
 };
-// Retrieve all doantion transactions
-const getAllTransactions = async (req, res) => {
-  try {
-    const transactions = await DonationTransaction.find(query)
-      .populate("donorId")
-      .populate("donationId")
-      .sort({ createdAt: -1 });
+// // Retrieve all doantion transactions
+// const getAllTransactions = async (req, res) => {
+//   try {
+//     // Define query object for filtering
+//     const query = {}; // Fetch all transactions without filtering
 
-    if (transactions.length === 0) {
-      return res
-        .status(status.status.NOT_FOUND)
-        .send(
-          response.createErrorResponse(
-            status.status.NOT_FOUND,
-            "No donation transactions found"
-          )
-        );
-    }
+//     const transactions = await DonationTransaction.find(query)
+//       .populate("donorId") // Populate related User (donor) details
+//       .populate("donationId") // Populate related Donation details
+//       .sort({ createdAt: -1 }); // Sort transactions in descending order of creation
 
-    res
-      .status(status.status.OK)
-      .send(
-        response.createSuccessResponse(
-          status.status.OK,
-          "Donation transactions retrieved successfully",
-          transactions
-        )
-      );
-  } catch (error) {
-    res
-      .status(status.status.INTERNAL_SERVER_ERROR)
-      .send(
-        response.createErrorResponse(
-          status.status.INTERNAL_SERVER_ERROR,
-          "Server error occured during retrieving donation transaction"
-        )
-      );
-  }
-};
+//     if (transactions.length === 0) {
+//       return res
+//         .status(status.status.NOT_FOUND)
+//         .send(
+//           response.createErrorResponse(
+//             status.status.NOT_FOUND,
+//             "Donation transactions are not found"
+//           )
+//         );
+//     }
+
+//     res
+//       .status(status.status.OK)
+//       .send(
+//         response.createSuccessResponse(
+//           status.status.OK,
+//           "Donation transactions retrieved successfully",
+//           transactions
+//         )
+//       );
+//   } catch (error) {
+//     console.error("Error fetching transactions:", error);
+//     res
+//       .status(status.status.INTERNAL_SERVER_ERROR)
+//       .send(
+//         response.createErrorResponse(
+//           status.status.INTERNAL_SERVER_ERROR,
+//           "Server error occured during retrieving donation transaction"
+//         )
+//       );
+//   }
+// };
 module.exports = {
   createDonationTransaction,
-  getAllTransactions,
+  // getAllTransactions,
 };

@@ -52,34 +52,34 @@ const createTransaction = async (req, res) => {
   }
 };
 
-// Retrieve all transaction
-const getAllTransaction = async (req, res) => {
-  try {
-    const fRTransaction = await FundRaisingTransaction.find();
+// // Retrieve all transaction
+// const getAllTransaction = async (req, res) => {
+//   try {
+//     const fRTransaction = await FundRaisingTransaction.find();
 
-    res
-      .status(status.status.OK)
-      .send(
-        response.createSuccessResponse(
-          status.status.OK,
-          "Retrieve all fundraisers transaction successfully",
-          fRTransaction
-        )
-      );
-  } catch (error) {
-    res
-      .status(status.status.INTERNAL_SERVER_ERROR)
-      .send(
-        response.createErrorResponse(
-          status.status.INTERNAL_SERVER_ERROR,
-          "Server error occured during retrieving all fundraiser transactions",
-          error
-        )
-      );
-  }
-};
+//     res
+//       .status(status.status.OK)
+//       .send(
+//         response.createSuccessResponse(
+//           status.status.OK,
+//           "Retrieve all fundraisers transaction successfully",
+//           fRTransaction
+//         )
+//       );
+//   } catch (error) {
+//     res
+//       .status(status.status.INTERNAL_SERVER_ERROR)
+//       .send(
+//         response.createErrorResponse(
+//           status.status.INTERNAL_SERVER_ERROR,
+//           "Server error occured during retrieving all fundraiser transactions",
+//           error
+//         )
+//       );
+//   }
+// };
 
 module.exports = {
   createTransaction,
-  getAllTransaction,
+  // getAllTransaction,
 };

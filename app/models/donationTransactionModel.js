@@ -14,8 +14,6 @@ const donationTransactionSchema = new mongoose.Schema(
       required: true,
     },
     amount: { type: Number, required: true },
-    title: { type: String },
-
     message: { type: String },
   },
   {

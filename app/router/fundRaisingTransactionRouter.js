@@ -6,9 +6,9 @@ router.post(
   "/create-transaction",
   fundRaisingTransactionController.createTransaction
 );
-router.get(
-  "/fRTransactions",
-  fundRaisingTransactionController.getAllTransaction
-);
+// router.get(
+//   "/fRTransactions",
+//   fundRaisingTransactionController.getAllTransaction
+// );
 
 module.exports = router;

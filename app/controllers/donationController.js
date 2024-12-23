@@ -31,8 +31,25 @@ const createDonation = async (req, res) => {
 
 // Retrieve all donations
 const getAllDonations = async (req, res) => {
+  // console.log(req.query);
+  const { search, sort } = req.query;
+  console.log(search);
+
+  let filter = {};
+  if (search) {
+    filter.title = { $regex: search, $options: "i" };
+  }
+
+  let sortingAmount = {};
+  if (sort === "HighToLow") {
+    sortingAmount.amount = -1;
+  }
+
+  if (sort === "LowToHigh") {
+    sortingAmount.amount = 1;
+  }
   try {
-    const donations = await Donation.find();
+    const donations = await Donation.find(filter).sort(sortingAmount);
     res
       .status(status.status.OK)
       .send(

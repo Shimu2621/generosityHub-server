@@ -135,10 +135,6 @@ const updateUsersRole = async (req, res) => {
         );
     }
 
-    // // Update the user's role
-    // user.role = role;
-    // await user.save();
-
     res
       .status(status.status.OK)
       .send(
@@ -161,9 +157,92 @@ const updateUsersRole = async (req, res) => {
   }
 };
 
+// Retrieve user by id
+const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await User.findById(id);
+
+    if (!result) {
+      return res
+        .status(status.status.NOT_FOUND)
+        .send(
+          response.createNotFoundResponse(
+            status.status.NOT_FOUND,
+            "User not found"
+          )
+        );
+    }
+
+    res
+      .status(status.status.OK)
+      .send(
+        response.createSuccessResponse(
+          status.status.OK,
+          "Retrieving a Single User Successfully",
+          result
+        )
+      );
+  } catch (error) {
+    res
+      .status(status.status.INTERNAL_SERVER_ERROR)
+      .send(
+        response.createErrorResponse(
+          status.status.INTERNAL_SERVER_ERROR,
+          "Server error occured during the retrieving a single user",
+          error
+        )
+      );
+  }
+};
+
+// Update User profile
+const updateProfile = async (req, res) => {
+  const { id } = req.params;
+  const updatedProfile = req.body;
+
+  try {
+    const result = await User.findByIdAndUpdate(id, updatedProfile, {
+      new: true,
+    });
+    if (!result) {
+      return res
+        .status(status.status.NOT_FOUND)
+        .send(
+          response.createNotFoundResponse(
+            status.status.NOT_FOUND,
+            "User profile not updated"
+          )
+        );
+    }
+
+    res
+      .status(status.status.OK)
+      .send(
+        response.createSuccessResponse(
+          status.status.OK,
+          "User profile updated successfully",
+          result
+        )
+      );
+  } catch (error) {
+    res
+      .status(status.status.INTERNAL_SERVER_ERROR)
+      .send(
+        response.createErrorResponse(
+          status.status.INTERNAL_SERVER_ERROR,
+          "Server error occured during the update users role",
+          error
+        )
+      );
+  }
+};
+
 module.exports = {
   signup,
   signin,
   allUsers,
   updateUsersRole,
+  getUserById,
+  updateProfile,
 };

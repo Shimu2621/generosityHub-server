@@ -9,6 +9,8 @@ const generateToken = (user) => {
       userName: user.userName,
       userPhoto: user.userPhoto,
       email: user.email,
+      userPhone: user.userPhone,
+      createdAt: user.createdAt,
       role: user.role,
     },
     process.env.TOKEN,

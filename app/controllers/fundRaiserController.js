@@ -31,8 +31,23 @@ const createFundRaiser = async (req, res) => {
 
 // Retrieve all fundraisers
 const getAllFundRaiser = async (req, res) => {
+  const { search, sort } = req.query;
+  console.log(search);
+
+  // Build filter for search
+  let filter = {};
+  if (search) {
+    filter.title = { $regex: search, $options: "i" };
+  }
+
+  let sortingAmount = {};
+  if (sort === "LowToHigh") {
+    sortingAmount = { raisedAmount: 1 };
+  } else if (sort === "HighToLow") {
+    sortingAmount = { raisedAmount: -1 };
+  }
   try {
-    const fundRaisers = await FundRaiser.find();
+    const fundRaisers = await FundRaiser.find(filter).sort(sortingAmount);
     res
       .status(status.status.OK)
       .send(

@@ -3,13 +3,18 @@ const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-const userSchema = new Schema({
-  userName: { type: String, required: true },
-  userPhoto: { type: String, default: "default.jpg" },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role: { type: String, enum: ["user", "admin"], default: "user" },
-});
+const userSchema = new Schema(
+  {
+    userName: { type: String, required: true },
+    userPhoto: { type: String, default: "default.jpg" },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    role: { type: String, enum: ["user", "admin"], default: "user" },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 //This middleware(Pre-save Middleware) runs automatically before saving a user document
 userSchema.pre("save", async function (next) {

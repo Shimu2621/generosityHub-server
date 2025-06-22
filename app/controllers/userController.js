@@ -8,9 +8,27 @@ const response = require("../utils/response");
 // Signup route function
 const signup = async (req, res) => {
   try {
-    const newUser = new User(req.body);
+    const { userName, email, password, userPhoto, role } = req.body;
 
+    // Check if email already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res
+        .status(status.status.BAD_REQUEST)
+        .send(
+          response.createErrorResponse(
+            status.status.BAD_REQUEST,
+            "Email already in use",
+            "A user with this email already exists"
+          )
+        );
+    }
+
+    // Create and save the new user
+    const newUser = new User({ userName, email, password, userPhoto, role });
     const result = await newUser.save();
+
+    // Send success response
     res
       .status(status.status.CREATED)
       .send(
@@ -21,12 +39,13 @@ const signup = async (req, res) => {
         )
       );
   } catch (error) {
+    console.error("Signup error:", error);
     res
       .status(status.status.INTERNAL_SERVER_ERROR)
       .send(
         response.createErrorResponse(
           status.status.INTERNAL_SERVER_ERROR,
-          "Server error occured when creating an user",
+          "Server error occurred when creating a user",
           error.message
         )
       );
@@ -66,6 +85,7 @@ const signin = async (req, res) => {
     res.cookie("accessToken", token, {
       secure: true,
       httpOnly: false,
+      sameSite: "None",
       maxAge: 60 * 60 * 1000,
     });
     // Check user role

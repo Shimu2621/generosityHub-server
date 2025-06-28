@@ -95,7 +95,8 @@ const signin = async (req, res) => {
         status.status.OK,
         "User logged in successfully",
         user,
-        isAdmin
+        isAdmin,
+        token
       ) //include isAdmin in response
     );
   } catch (error) {

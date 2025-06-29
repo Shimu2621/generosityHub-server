@@ -19,6 +19,7 @@ app.use(
       "https://generosity-hub-client.vercel.app",
       "http://localhost:5173",
     ],
+
     credentials: true,
   })
 );

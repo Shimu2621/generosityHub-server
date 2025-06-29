@@ -81,15 +81,17 @@ const signin = async (req, res) => {
     }
 
     const token = generateToken(user);
+    console.log("token", token);
 
     res.cookie("accessToken", token, {
-      secure: true,
       httpOnly: false,
-      sameSite: "None",
+      sameSite: "Lax",
+      // domain: "localhost",
       maxAge: 60 * 60 * 1000,
     });
     // Check user role
     const isAdmin = user.role === "admin";
+    console.log("isAdmin", isAdmin);
     res.status(status.status.OK).send(
       response.createSuccessResponse(
         status.status.OK,

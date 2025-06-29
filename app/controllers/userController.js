@@ -85,7 +85,7 @@ const signin = async (req, res) => {
 
     res.cookie("accessToken", token, {
       httpOnly: false,
-      sameSite: "Lax",
+      sameSite: "None",
       // domain: "localhost",
       maxAge: 60 * 60 * 1000,
     });

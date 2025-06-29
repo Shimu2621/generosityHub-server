@@ -2,8 +2,8 @@
 
 const express = require("express");
 const conectionToDB = require("./db/connectDb");
-const app = express();
 const cors = require("cors");
+const app = express();
 const userRouter = require("./router/userRouter");
 const donationRouter = require("./router/donatonRouter");
 const fundRaiserRouter = require("./router/fundRaiserRouter");
@@ -15,12 +15,16 @@ const allTransactionRoutes = require("./router/allTransactionsRouter");
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",
       "https://generosity-hub-client.vercel.app",
+      "http://localhost:5173",
     ],
     credentials: true,
   })
 );
+
+// ✅ 2. Allow preflight requests
+app.options("*", cors());
+
 app.use(express.json());
 
 conectionToDB();

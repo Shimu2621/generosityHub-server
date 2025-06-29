@@ -10,6 +10,7 @@ const fundRaiserRouter = require("./router/fundRaiserRouter");
 const fundRaisingTransactionRouter = require("./router/fundRaisingTransactionRouter");
 const donationTransactionRouter = require("./router/donationTransactionRouter");
 const allTransactionRoutes = require("./router/allTransactionsRouter");
+const port = 4000;
 
 // Middleware
 app.use(
@@ -23,7 +24,7 @@ app.use(
 );
 
 // ✅ 2. Allow preflight requests
-app.options("*", cors());
+// app.options("*", cors());
 
 app.use(express.json());
 
@@ -40,4 +41,6 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-module.exports = app;
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});

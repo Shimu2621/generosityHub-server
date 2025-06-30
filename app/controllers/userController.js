@@ -85,8 +85,8 @@ const signin = async (req, res) => {
 
     res.cookie("accessToken", token, {
       httpOnly: false,
-      sameSite: "Lax",
-      // domain: "localhost",
+      sameSite: "None",
+      domain: "https://generosity-hub-client.vercel.app/",
       maxAge: 60 * 60 * 1000,
     });
     // Check user role

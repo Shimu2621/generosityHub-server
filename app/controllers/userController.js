@@ -84,7 +84,7 @@ const signin = async (req, res) => {
     console.log("token", token);
 
     res.cookie("accessToken", token, {
-      httpOnly: true,
+      httpOnly: false,
       secure: true,
       sameSite: "None",
       // domain: "https://generosity-hub-client.vercel.app/",
